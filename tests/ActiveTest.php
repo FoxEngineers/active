@@ -154,13 +154,13 @@ class ActiveTest extends TestCase
     }
 
     /**
-     * @param Request $request
-     * @param         $routes
-     * @param         $result
+     * @param ?Request $request
+     * @param          $routes
+     * @param          $result
      *
      * @dataProvider provideCheckRoutePatternTestData
      */
-    public function testCheckCurrentRoutePattern(Request $request, $routes, $result)
+    public function testCheckCurrentRoutePattern(?Request $request, $routes, $result)
     {
         app(HttpKernelContract::class)->handle($request);
 
@@ -420,6 +420,11 @@ class ActiveTest extends TestCase
                 Request::create('/'),
                 ['foo.*', null],
                 true,
+            ],
+            'route with no name and single pattern'    => [
+                Request::create('/'),
+                'foo.*',
+                false,
             ],
         ];
     }
